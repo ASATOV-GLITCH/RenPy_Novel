@@ -1,4 +1,12 @@
-# RenPy_Novel
+# RenPy_Novel  
+
+Development Status
+
+The game is in the early alpha stage. I am currently working on the first world of the "Library of Sins.
+
+
+
+
 My first visual novel project created with Ren'Py engine
 
 Library of Sins
