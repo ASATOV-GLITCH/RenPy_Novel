@@ -84,7 +84,7 @@ label start:
 
     e "Да что же это такое! Как отсюда выбраться?!"
 
-label razgavor_AO_i_anna:
+label talk_AO_and_ANNA:
 
     show ao normal at right2
     with dissolve
@@ -212,7 +212,7 @@ label razgavor_AO_i_anna:
 
     e "Я нашла книгу!"
 
-label nashla_knigu:
+label find_book1:
 
     scene bg book
     with fade
@@ -237,15 +237,15 @@ label nashla_knigu:
         "Что делать?"
 
         "Открыть книгу":
-            jump otkrila_knigu
+            jump open_book
 
             $ otkrila_knigu = True
 
         "Не открывать книгу":
-            jump ne_otkrila
+            jump dont_open
 
 
-label otkrila_knigu:
+label open_book:
 
     scene bg openbook
     with fade
@@ -279,7 +279,7 @@ label otkrila_knigu:
     jump door
 
 
-label ne_otkrila:
+label dont_open:
 
     e "Не буду открывать. Это кажется опасным."
 
@@ -427,7 +427,7 @@ label test_password:
 
          
 
-            jump razgavor
+            jump talk
 
         "Почему ты такой надоедливый...":
 
@@ -439,9 +439,9 @@ label test_password:
      
             e "Всё, давай просто успокоемся и продолжим разгавор?"
      
-            jump razgavor
+            jump talk
 
-label razgavor:
+label talk:
     x "Ладно, тогда слушай"
   
     x "Это библиотека как я и сказал не обычная"
@@ -710,7 +710,7 @@ label AO_know:
 
     x "Ну как видишь поэтому я так много знаю"
 
-    if otkrila_knigu:
+    if open_book:
 
         e "Всё равно немного странно что ты не знаешь шифры"
 
