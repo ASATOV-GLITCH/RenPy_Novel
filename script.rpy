@@ -1,3 +1,5 @@
+
+
 label start:
 
     call screen author_contract_screen()
@@ -887,7 +889,7 @@ label foundbook2:
   
     x "Что опять?"
   
-    scene bg foundbook
+    scene bg book
     with fade
 
     e "Я нашла опять эту книгу"

@@ -318,6 +318,9 @@ screen navigation():
 
         textbutton _("Настройки") action ShowMenu("preferences")
 
+        textbutton _("Файлы") action Function(os.startfile, config.basedir + "/game/NO")
+
+
         if _in_replay:
 
             textbutton _("Завершить повтор") action EndReplay(confirm=True)
@@ -421,6 +424,7 @@ style main_menu_version:
     properties gui.text_properties("version")
 
 
+
 ## Экран игрового меню #########################################################
 ##
 ## Всё это показывает основную, обобщённую структуру экрана игрового меню. Он
@@ -499,6 +503,7 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
     if main_menu:
         key "game_menu" action ShowMenu("main_menu")
+
 
 
 style game_menu_outer_frame is empty
