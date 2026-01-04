@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Школа ASATOV - Официальный сайт</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #1a1a1a; color: white; }
+        header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid #d4af37; }
+        nav { display: flex; justify-content: center; background: #222; padding: 10px; }
+        nav a { color: #d4af37; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .hero { height: 400px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/splash.png'); 
+                background-size: cover; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .content { padding: 40px; max-width: 900px; margin: auto; line-height: 1.6; }
+        .footer { text-align: center; padding: 20px; background: #000; font-size: 0.8em; color: #777; }
+        h1 { color: #d4af37; }
+        @keyframes gold-glow {
+            0% { text-shadow: 0 0 5px #d4af37; }
+            50% { text-shadow: 0 0 25px #d4af37, 0 0 10px #ffffff; }
+            100% { text-shadow: 0 0 5px #d4af37; }
+}
+
+        header h1 {
+            animation: gold-glow 3s infinite ease-in-out;
+            cursor: pointer;
+            transition: 0.5s;
+}
+
+        header h1:hover {
+            transform: scale(1.1);
+            color: #fff;
+}
+    </style>
+</head>
+<body>
+        <div id="timer-box" style="background: #222; border: 2px solid #d4af37; padding: 20px; text-align: center; margin: 20px auto; max-width: 400px; border-radius: 10px;">
+        <h3 style="color: #d4af37; margin: 0;">До перемены осталось:</h3>
+        <div id="timer" style="font-size: 2em; font-weight: bold; color: white;">Загрузка...</div>
+    </div>
+
+    <script>
+    function updateTimer() {
+        const now = new Date();
+        const currentMin = now.getHours() * 60 + now.getMinutes();
+    
+    // Все звонки (начало и конец уроков) в минутах от 00:00
+        const schedule = [
+            {time: 780, label: "1-го урока"}, {time: 825, label: "перемены"},
+            {time: 830, label: "2-го урока"}, {time: 875, label: "перемены"},
+            {time: 880, label: "3-го урока"}, {time: 925, label: "БОЛЬШОЙ перемены"},
+            {time: 935, label: "4-го урока"}, {time: 980, label: "перемены"},
+            {time: 985, label: "5-го урока"}, {time: 1030, label: "перемены"},
+            {time: 1035, label: "6-го урока"}, {time: 1070, label: "свободы!"} // Ровно 17:50
+    ];
+
+        const nextEvent = schedule.find(event => event.time > currentMin);
+        const timerElement = document.getElementById('timer');
+        const labelElement = document.querySelector('#timer-box h3');
+
+        if (nextEvent) {
+            let diff = nextEvent.time - currentMin;
+            let sec = 59 - now.getSeconds();
+            labelElement.innerHTML = "До начала " + nextEvent.label + " осталось:";
+            timerElement.innerHTML = (diff - 1) + " мин. " + (sec < 10 ? "0" : "") + sec + " сек.";
+        } else {
+            labelElement.innerHTML = "Уроки окончены!";
+            timerElement.innerHTML = "Пора отдыхать!";
+        }
+}
+    
+
+    
+
+setInterval(updateTimer, 1000);
+updateTimer();
+</script>
+
+
+
+</script>
+
+<header>
+    <h1>Школа №10, класс 10-А</h1>
+    <p>Будущее начинается здесь</p>
+</header>
+
+<nav>
+    <a href="#">Главная</a>
+    <a href="teachers.html">Учителя</a>
+    <a href="schedule.html">Расписание</a>
+    <a href="contacts.html">Контакты</a>
+    <a href="sat.html">SAT/IELTS</a>
+    <a href="calculatorsat.html">Калькульятор SAT</a>
+</nav>
+
+<div class="hero">
+    <div>
+        <h2>Добро пожаловать в сайт по классу 10-А</h2>
+        <p>Здесь все нужные информации по классу 10-А</p>
+    </div>
+</div>
+
+<div class="content">
+    <h3>Новости школы</h3>
+    <p>Сегодня мы начали разработку нового сайта. Благодаря процессору 8.00 GHz работа идет быстрее, чем когда-либо!</p>
+    <p>Наш девиз: "Стремись к лучшим Университетам"</p>
+</div>
+
+<div class="footer">
+    © 2026 Developed by ASATOV. Все права защищены.
+</div>
+
+</body>
+</html>
