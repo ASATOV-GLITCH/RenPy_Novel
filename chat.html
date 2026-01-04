@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>School Chat</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <style>
+        body { background: #0a0a0a; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        #chat-container { width: 90%; max-width: 500px; background: #1a1a1a; border: 2px solid #d4af37; border-radius: 15px; padding: 20px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        #messages { height: 400px; overflow-y: auto; margin-bottom: 20px; padding: 10px; background: #111; border-radius: 10px; border: 1px solid #333; }
+        .msg { margin-bottom: 12px; padding: 8px; border-radius: 8px; background: #222; border-left: 3px solid #d4af37; }
+        .msg b { color: #d4af37; display: block; font-size: 0.9em; }
+        .input-area { display: flex; gap: 10px; }
+        input { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #000; color: #fff; }
+        button { padding: 10px 20px; background: #d4af37; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #fff; color: #000; }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <h2 style="text-align: center; color: #d4af37;">SCHOOL CHAT</h2>
+        <div id="messages"></div>
+        <div class="input-area">
+            <input type="text" id="nameInput" placeholder="Имя" style="width: 80px; flex: none;">
+            <input type="text" id="messageInput" placeholder="Сообщение...">
+            <button onclick="sendMessage()">SEND</button>
+        </div>
+        <div style="text-align: center; margin-bottom: 15px;">
+            <a href="index.html" style="color: #888; text-decoration: none; font-size: 0.8em; border: 1px solid #333; padding: 5px 10px; border-radius: 5px; transition: 0.3s;">
+            ← Вернуться на главную
+            </a>
+        </div>
+    </div>
+
+    <script>
+
+
+        // 1. Устанавливаем пароль (можешь изменить '10A2026' на любой свой)
+        const SECRET_PASSWORD = "10A2026"; 
+    
+    // 2. Спрашиваем пароль у пользователя
+        let userPass = prompt("Введите секретный код для доступа к чату 10-А:");
+
+        if (userPass !== SECRET_PASSWORD) {
+        alert("Неверный код! Доступ закрыт.");
+    // Заменяем всё содержимое, но добавляем кнопку назад
+        document.body.innerHTML = `
+        <div style="text-align:center; margin-top:50px;">
+                <h1 style="color:red;">ДОСТУП ЗАПРЕЩЕН</h1>
+                <br>
+                <a href="index.html" style="color: #d4af37; text-decoration: none; border: 1px solid #d4af37; padding: 10px 20px; border-radius: 5px;">
+                    ← Вернуться на главную
+                </a>
+            </div>
+        `;
+    throw new Error("Access Denied");
+}
+
+        // === ВСТАВЬ СВОЙ КОНФИГ НИЖЕ ===
+        const firebaseConfig = {
+            apiKey: "AIzaSyBMRLFC15hXyu7201337gxGicOHX75s5Xg",
+            authDomain: "school10-chat.firebaseapp.com",
+            projectId: "school10-chat",
+            storageBucket: "school10-chat.firebasestorage.app",
+            messagingSenderId: "213793812228",
+            appId: "1:213793812228:web:950a75abe3d689f88f6a51",
+            measurementId: "G-427TJHXKVH"
+        };
+        // === КОНЕЦ КОНФИГА ===
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        function sendMessage() {
+            const name = document.getElementById('nameInput').value || "Аноним";
+            const text = document.getElementById('messageInput').value;
+            if (text.trim() !== "") {
+                db.ref('messages').push({
+                    name: name,
+                    text: text,
+                    timestamp: Date.now()
+                });
+                document.getElementById('messageInput').value = '';
+            }
+        }
+
+        db.ref('messages').limitToLast(50).on('child_added', (snapshot) => {
+            const data = snapshot.val();
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'msg';
+            msgDiv.innerHTML = `<b>${data.name}</b> ${data.text}`;
+            document.getElementById('messages').appendChild(msgDiv);
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+        });
+    </script>
+</body>
+</html>
